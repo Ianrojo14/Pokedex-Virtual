@@ -1,0 +1,20 @@
+
+
+
+#hero-index {
+    background-image: url("../images/index/img-1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black; /* Agregado para cambiar el color de fondo a negro */
+
+}
+
+#hero-pokedex {
+    background-image: url("../images/pokedex/img-1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: black; /* Agregado para cambiar el color de fondo a negro */
+    
+}
+
