@@ -51,7 +51,8 @@ const Pokemons = () => {
           type="text"
           variant="underlined"
           label={<span className="text-white">Buscar Pokemon</span>} // Cambiar el color del texto "Pokemon"
-          placeholder="Pokemon"
+            placeholder="Pokemon"
+            style={{ color: 'white' }}
           color="danger"
           size="lg"
           endContent={<IoSearch/>}

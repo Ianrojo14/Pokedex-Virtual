@@ -1,5 +1,6 @@
 import Header from "../components/header";
 import img1 from "../assets/images/contact/img-1.jpg";
+
 import { Input, Textarea } from "@nextui-org/react";
 
 function Contact() {
