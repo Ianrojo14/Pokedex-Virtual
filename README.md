@@ -10,3 +10,6 @@ Currently, two official plugins are available:
 npm run dev
 
 en el Jason llamado "datos.json" guardada en la carpeta ".vscode" saldra la respuesta se espera de la API
+
+Token Pokedex-Virtual:
+https://pokeapi.co/api/v2/pokemon/pikachu
