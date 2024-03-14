@@ -1,23 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Pagination, Input, Divider, Card, CardHeader, CardBody } from '@nextui-org/react';
+import { IoSearch } from 'react-icons/io5';
 
 const Pokemons = () => {
-  const [pokemonData, setPokemonData] = useState(null);
+  const [pokemons, setPokemons] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [page, setPage] = useState(1);
+  const [error, setError] = useState(null);
+  const limit = 25;
+  const maxPages = 5;
+
+  const fetchPokemonDetails = async (pokemon) => {
+    const response = await fetch(pokemon.url);
+    const data = await response.json();
+    return { ...pokemon, details: data };
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon/pikachu');
-        setPokemonData(response.data);
-      } catch (error) {
-        console.error('Error al obtener datos de la API:', error);
-      }
-    };
-
-    fetchData();
-  }, [page,searchTerm]);
-
- 
+    if (searchTerm) {
+      // Fetch individual pokemon when a search term is entered
+      fetch(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`No se encontró un pokémon con el nombre "${searchTerm}"`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          setPokemons([{ name: searchTerm, url: '', details: data }]);
+          setError(null); // Clear error
+        })
+        .catch(error => setError(error.message));
+    } else {
+      // Fetch list of pokemons when search term is empty
+      fetch(`https://pokeapi.co/api/v2/pokemon?offset=${(page - 1) * limit}&limit=${limit}`)
+        .then(response => response.json())
+        .then(async data => {
+          const detailedPokemons = await Promise.all(data.results.map(fetchPokemonDetails));
+          setPokemons(detailedPokemons);
+          setError(null); // Clear error
+        });
+    }
+  }, [page, searchTerm]);
 
   return (
     <div className="bg-black p-5">
