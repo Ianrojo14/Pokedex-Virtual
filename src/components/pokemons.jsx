@@ -3,11 +3,16 @@ import axios from 'axios';
 
 const Pokemons = () => {
   const [pokemonData, setPokemonData] = useState(null);
+  const token = 'qwer1234'; // Token de autenticación
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon/pikachu');
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon/pikachu', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         setPokemonData(response.data);
       } catch (error) {
         console.error('Error al obtener datos de la API:', error);
@@ -15,7 +20,7 @@ const Pokemons = () => {
     };
 
     fetchData();
-  }, [page,searchTerm]);
+  }, [page, searchTerm]); // Asegúrate de que las dependencias estén correctas aquí
 
  
 
